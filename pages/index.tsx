@@ -5,7 +5,7 @@ import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
 
 const getImageUrl = (id: string) =>
-  `https://i.giphy.com/media/${id}/giphy.webp`;
+  `https://i.giphy.com/media/${id}/giphy.gif`;
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
