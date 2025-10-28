@@ -3,7 +3,7 @@ import Image from "next/image";
 import useSWR from "swr";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getRandomInt } from "../lib/random-int";
 
 const SEARCH_API = "/api/search";
@@ -19,12 +19,25 @@ const Home: NextPage = () => {
   const { data, error } = useSWR(q ? `${SEARCH_API}?q=${q}` : null, fetcher, {
     refreshInterval: refresh * 50, // 50 is a magic number (how many gifs are fetch from the api)
   });
+  const usedIndices = useMemo(() => {
+    return new Set();
+  }, [data]);
+
 
   const [currentId, setCurrentId] = useState(PLACEHOLDER_ID);
   useEffect(() => {
     if (data) {
       const interval = setInterval(() => {
-        setCurrentId(data[getRandomInt(data.length)].id);
+        let index = getRandomInt(data.length);
+        let circuitBreaker = 50;
+        while (usedIndices.has(index) && circuitBreaker > 0) {
+          index = getRandomInt(data.length);
+          circuitBreaker--;
+        }
+
+        usedIndices.add(index);
+        setCurrentId(data[index].id);
+        console.log(usedIndices);
       }, refresh)
       return () => clearInterval(interval);
     }
