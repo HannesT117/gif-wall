@@ -67,8 +67,10 @@ const Home: NextPage = () => {
     <Image
       className={styles.gif}
       src={`${getImageUrl(currentId)}`}
-      layout="fill"
-    />
+      alt="A random gif"
+      unoptimized
+      fill
+      sizes="100vw" />
   );
 };
 
