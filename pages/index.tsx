@@ -7,17 +7,30 @@ import { useEffect, useMemo, useState } from "react";
 import { getRandomInt } from "../lib/random-int";
 
 const SEARCH_API = "/api/search";
-const PLACEHOLDER_ID = "QYpwUb3xVN0HncuHU0";
+const PLACEHOLDER_ID = "xTkcEQACH24SMPxIQg";
+const NUMBER_OF_GIFS = 50;
 
 const getImageUrl = (id: string) => `https://i.giphy.com/media/${id}/giphy.gif`;
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+const getUnusedIndex = (data: any, usedIndices: Set<unknown>) => {
+  let index = getRandomInt(data.length);
+  let circuitBreaker = NUMBER_OF_GIFS;
+
+  while (usedIndices.has(index) && circuitBreaker > 0) {
+    index = getRandomInt(data.length);
+    circuitBreaker--;
+  }
+
+  return index;
+}
 
 const Home: NextPage = () => {
   const router = useRouter();
   const { q, r = 5000 } = router.query;
   const refresh = Number.parseInt(r as string);
   const { data, error } = useSWR(q ? `${SEARCH_API}?q=${q}` : null, fetcher, {
-    refreshInterval: refresh * 50, // 50 is a magic number (how many gifs are fetch from the api)
+    refreshInterval: refresh * NUMBER_OF_GIFS,
   });
 
   const usedIndices = useMemo(() => {
@@ -29,12 +42,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (data) {
       const interval = setInterval(() => {
-        let index = getRandomInt(data.length);
-        let circuitBreaker = 50;
-        while (usedIndices.has(index) && circuitBreaker > 0) {
-          index = getRandomInt(data.length);
-          circuitBreaker--;
-        }
+        let index = getUnusedIndex(data, usedIndices);
 
         usedIndices.add(index);
         setCurrentId(data[index].id);
@@ -43,7 +51,10 @@ const Home: NextPage = () => {
     }
   }, [data, refresh, usedIndices]);
 
-  if (error) return <div>failed to load</div>;
+  if (error) {
+    return <div>failed to load</div>
+  };
+  
   if (!data && q) {
     return (
       <div className={styles.loader__container}>
@@ -62,3 +73,4 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
