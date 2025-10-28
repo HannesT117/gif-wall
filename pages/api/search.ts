@@ -6,9 +6,9 @@ import { getRandomInt } from "../../lib/random-int";
 type Data = any;
 
 const ENDPOINT = "https://api.giphy.com/v1/gifs/search";
-const API_KEY = "INSERT_API_KEY";
-const RAITING = "r";
-const API_LIMIT = 50;
+const API_KEY = process.env.API_KEY;
+const RATING = process.env.RATING || "pg";
+const API_LIMIT = Number(process.env.API_LIMIT) || 50;
 
 const request = async (url: URL) => {
   const response = await fetch(url.toString());
@@ -25,11 +25,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  if (!API_KEY) {
+    throw Error("API Key for giphy has to be defined.");
+  }
+
   const searchTerms = req.query.q as string;
   const url = new URL(ENDPOINT);
   url.searchParams.append("api_key", API_KEY);
   url.searchParams.append("q", searchTerms);
-  url.searchParams.append("rating", RAITING);
+  url.searchParams.append("rating", RATING);
   url.searchParams.append("limit", `${API_LIMIT}`);
   url.searchParams.append("offset", `${getOffset(API_LIMIT)}`);
 
