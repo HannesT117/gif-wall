@@ -19,10 +19,11 @@ const Home: NextPage = () => {
   const { data, error } = useSWR(q ? `${SEARCH_API}?q=${q}` : null, fetcher, {
     refreshInterval: refresh * 50, // 50 is a magic number (how many gifs are fetch from the api)
   });
+
   const usedIndices = useMemo(() => {
     return new Set();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
-
 
   const [currentId, setCurrentId] = useState(PLACEHOLDER_ID);
   useEffect(() => {
@@ -37,11 +38,10 @@ const Home: NextPage = () => {
 
         usedIndices.add(index);
         setCurrentId(data[index].id);
-        console.log(usedIndices);
-      }, refresh)
+      }, refresh);
       return () => clearInterval(interval);
     }
-  }, [data, refresh]);
+  }, [data, refresh, usedIndices]);
 
   if (error) return <div>failed to load</div>;
   if (!data && q) {

@@ -20,7 +20,7 @@ const request = async (url: URL) => {
 
 const getOffset = (pageSize: number) => {
   return getRandomInt(10) * pageSize;
-}
+};
 
 export default async function handler(
   req: NextApiRequest,
