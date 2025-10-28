@@ -10,6 +10,8 @@ const getImageUrl = (id: string) =>
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const SEARCH_API = "/api/search";
+const PLACEHOLDER_ID = "QYpwUb3xVN0HncuHU0"
+
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -19,17 +21,18 @@ const Home: NextPage = () => {
   });
 
   if (error) return <div>failed to load</div>;
-  if (!data)
+  if (!data && q) {
     return (
       <div className={styles.loader__container}>
         <div className={styles.loader}></div>
       </div>
     );
+  }
 
   return (
     <Image
       className={styles.gif}
-      src={`${getImageUrl(data?.id)}`}
+      src={`${getImageUrl(data?.id || PLACEHOLDER_ID)}`}
       layout="fill"
     />
   );
