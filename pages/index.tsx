@@ -4,28 +4,28 @@ import useSWR from "swr";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
-const getImageUrl = (id: string) =>
-  `https://i.giphy.com/media/${id}/giphy.gif`;
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+import { getRandomInt } from "../lib/random-int";
 
 const SEARCH_API = "/api/search";
-const PLACEHOLDER_ID = "QYpwUb3xVN0HncuHU0"
+const PLACEHOLDER_ID = "QYpwUb3xVN0HncuHU0";
 
-const getRandomInt = (size: number) => Math.floor(Math.random() * size);
+const getImageUrl = (id: string) => `https://i.giphy.com/media/${id}/giphy.gif`;
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { q, refresh = 5000 } = router.query;
-  const { data, error } = useSWR(q ? `${SEARCH_API}?q=${q}` : null, fetcher);
+  const { q, r = 5000 } = router.query;
+  const refresh = Number.parseInt(r as string);
+  const { data, error } = useSWR(q ? `${SEARCH_API}?q=${q}` : null, fetcher, {
+    refreshInterval: refresh * 50, // 50 is a magic number (how many gifs are fetch from the api)
+  });
 
   const [currentId, setCurrentId] = useState(PLACEHOLDER_ID);
   useEffect(() => {
     if (data) {
       const interval = setInterval(() => {
-        setCurrentId(data[getRandomInt(data.length)].id)
-      }, Number.parseInt(refresh as string));
+        setCurrentId(data[getRandomInt(data.length)].id);
+      }, refresh)
       return () => clearInterval(interval);
     }
   }, [data, refresh]);
