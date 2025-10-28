@@ -8,8 +8,7 @@ type Data = any;
 const ENDPOINT = "https://api.giphy.com/v1/gifs/search";
 const API_KEY = "INSERT_API_KEY";
 const RAITING = "r";
-
-const getRandomInt = (size: number) => Math.floor(Math.random() * size);
+const API_LIMIT = "50";
 
 export default async function handler(
   req: NextApiRequest,
@@ -20,9 +19,10 @@ export default async function handler(
   url.searchParams.append("api_key", API_KEY);
   url.searchParams.append("q", searchTerms);
   url.searchParams.append("rating", RAITING);
+  url.searchParams.append("limit", API_LIMIT);
 
   const response = await fetch(url.toString());
   const { data } = (await response.json()) as any;
 
-  res.status(200).json(data[getRandomInt(data.length)]);
+  res.status(200).json(data);
 }
