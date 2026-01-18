@@ -1,7 +1,7 @@
 @font-face {
-  font-family: "TitanOne";
-  src: url("/fonts/TitanOne-Regular.ttf") format("truetype");
-  font-weight: 300 900;
+  font-family: "Base";
+  src: url("/fonts/CaveatBrush-Regular.ttf") format("truetype");
+  font-weight: 500 900;
   font-style: normal;
   font-display: swap;
 }
@@ -10,8 +10,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "TitanOne", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  font-family: "Base", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 #__next {

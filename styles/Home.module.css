@@ -56,7 +56,7 @@
 .ratingSelect {
   width: 100%;
   padding: 16px 20px;
-  font-size: 16px;
+  font: inherit;
   border: 2px solid #ffd700;
   border-radius: 8px;
   background-color: #2a2a2a;
@@ -72,7 +72,6 @@
 
 .searchButton {
   padding: 16px 32px;
-  font-size: 18px;
   font-family: inherit;
   font-weight: bold;
   background-color: #ffd700;
