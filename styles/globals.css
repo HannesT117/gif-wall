@@ -1,3 +1,31 @@
+:root {
+  /* Colors */
+  --color-primary: #ffd700;
+  --color-primary-hover: #ffa500;
+  --color-bg-dark: #1a1a1a;
+  --color-bg-darker: #2a2a2a;
+  --color-text: #fff;
+  --color-text-muted: #aaa;
+  --color-text-placeholder: #888;
+
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 20px;
+  --space-lg: 32px;
+
+  /* Font Sizes */
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1.125rem;
+
+  /* Border Radius */
+  --radius-md: 8px;
+
+  /* Transitions */
+  --transition-fast: 0.1s;
+  --transition-normal: 0.3s;
+}
+
 @font-face {
   font-family: "Base";
   src: url("/fonts/CaveatBrush-Regular.ttf") format("truetype");

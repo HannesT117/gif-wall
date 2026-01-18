@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1a1a1a;
+  background-color: var(--color-bg-dark);
 }
 
 .searchForm {
@@ -26,64 +26,65 @@
 
 .searchInput {
   width: 100%;
-  padding: 16px 20px;
-  font-size: 18px;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-md);
   font-family: inherit;
-  border: 2px solid #ffd700;
-  border-radius: 8px;
-  background-color: #2a2a2a;
-  color: #fff;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-darker);
+  color: var(--color-text);
   box-sizing: border-box;
-  transition: border-color 0.3s;
+  transition: border-color var(--transition-normal);
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: #ffa500;
+  border-color: var(--color-primary-hover);
 }
 
 .searchInput::placeholder {
-  color: #888;
+  color: var(--color-text-placeholder);
 }
 
 .helperText {
   margin: -0.5rem 0 0 0;
-  font-size: 14px;
-  color: #aaa;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
   text-align: center;
 }
 
 .ratingSelect {
   width: 100%;
-  padding: 16px 20px;
+  padding: var(--space-sm) var(--space-md);
   font: inherit;
-  border: 2px solid #ffd700;
-  border-radius: 8px;
-  background-color: #2a2a2a;
-  color: #fff;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-darker);
+  color: var(--color-text);
   cursor: pointer;
-  transition: border-color 0.3s;
+  transition: border-color var(--transition-normal);
 }
 
 .ratingSelect:focus {
   outline: none;
-  border-color: #ffa500;
+  border-color: var(--color-primary-hover);
 }
 
 .searchButton {
-  padding: 16px 32px;
+  padding: var(--space-sm) var(--space-lg);
   font-family: inherit;
   font-weight: bold;
-  background-color: #ffd700;
-  color: #1a1a1a;
+  background-color: var(--color-primary);
+  color: var(--color-bg-dark);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.1s;
+  transition: background-color var(--transition-normal),
+    transform var(--transition-fast);
 }
 
 .searchButton:hover {
-  background-color: #ffa500;
+  background-color: var(--color-primary-hover);
 }
 
 .searchButton:active {
@@ -97,7 +98,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1a1a1a;
+  background-color: var(--color-bg-dark);
 }
 
 .pacman {
@@ -106,7 +107,7 @@
 }
 
 .pacmanMouth {
-  animation: chomp 0.3s ease-in-out infinite;
+  animation: chomp var(--transition-normal) ease-in-out infinite;
   transform-origin: 60px 50px;
 }
 
