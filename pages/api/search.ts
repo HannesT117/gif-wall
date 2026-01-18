@@ -30,10 +30,17 @@ export default async function handler(
   }
 
   const searchTerms = req.query.q as string;
+  const clientRating = req.query.rating as string;
+
+  // Validate rating is one of: g, pg, pg-13, r
+  const validRatings = ["g", "pg", "pg-13", "r"];
+  const safeRating =
+    clientRating && validRatings.includes(clientRating) ? clientRating : RATING;
+
   const url = new URL(ENDPOINT);
   url.searchParams.append("api_key", API_KEY);
   url.searchParams.append("q", searchTerms);
-  url.searchParams.append("rating", RATING);
+  url.searchParams.append("rating", safeRating);
   url.searchParams.append("limit", `${API_LIMIT}`);
   url.searchParams.append("offset", `${getOffset(API_LIMIT)}`);
 
