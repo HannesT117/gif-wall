@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__acp__Bash(pnpm run lint)",
+      "mcp__acp__Bash(pnpm run test*)",
+      "mcp__acp__Bash(pnpm run build*)",
+      "mcp__acp__Bash(pnpm run dev*)",
+      "mcp__acp__Bash(git status*)",
+      "mcp__acp__Bash(git diff*)"
+    ],
+    "deny": ["mcp__acp__Bash(curl:*)", "Read(./.env)", "Read(./.env.*)"]
+  },
+  "env": {
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0"
+  }
+}
