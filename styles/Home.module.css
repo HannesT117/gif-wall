@@ -4,34 +4,152 @@
   object-fit: cover;
 }
 
+/* Search Form Styles */
+.searchContainer {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1a1a;
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 18px;
+  font-family: inherit;
+  border: 2px solid #ffd700;
+  border-radius: 8px;
+  background-color: #2a2a2a;
+  color: #fff;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #ffa500;
+}
+
+.searchInput::placeholder {
+  color: #888;
+}
+
+.helperText {
+  margin: -0.5rem 0 0 0;
+  font-size: 14px;
+  color: #aaa;
+  text-align: center;
+}
+
+.ratingSelect {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 16px;
+  border: 2px solid #ffd700;
+  border-radius: 8px;
+  background-color: #2a2a2a;
+  color: #fff;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.ratingSelect:focus {
+  outline: none;
+  border-color: #ffa500;
+}
+
+.searchButton {
+  padding: 16px 32px;
+  font-size: 18px;
+  font-family: inherit;
+  font-weight: bold;
+  background-color: #ffd700;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.searchButton:hover {
+  background-color: #ffa500;
+}
+
+.searchButton:active {
+  transform: scale(0.98);
+}
+
+/* Pacman Loading Animation */
 .loader__container {
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #1a1a1a;
 }
-.loader {
-  display: inline-block;
-  width: 80px;
-  height: 80px;
+
+.pacman {
+  width: 220px;
+  height: 100px;
 }
-.loader:after {
-  content: " ";
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border-radius: 50%;
-  border: 6px solid #000;
-  border-color: #000 transparent #000 transparent;
-  animation: loader 1.2s linear infinite;
+
+.pacmanMouth {
+  animation: chomp 0.3s ease-in-out infinite;
+  transform-origin: 60px 50px;
 }
-@keyframes loader {
+
+.dot {
+  animation: moveDots 1.2s linear infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.dot:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+@keyframes chomp {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes moveDots {
   0% {
-    transform: rotate(0deg);
+    transform: translateX(0);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0;
   }
   100% {
-    transform: rotate(360deg);
+    transform: translateX(-45px);
+    opacity: 0;
   }
 }
